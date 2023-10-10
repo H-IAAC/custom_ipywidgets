@@ -11,3 +11,5 @@ custom_ipywidgets/labextension/
 
 # OS X
 .DS_Store
+
+js/yarn-error.log

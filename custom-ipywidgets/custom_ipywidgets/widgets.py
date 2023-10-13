@@ -1,0 +1,19 @@
+import ipywidgets as widgets
+from traitlets import Unicode, List
+from ._version import NPM_PACKAGE_RANGE
+
+# See js/lib/example.js for the frontend counterpart to this file.
+
+@widgets.register
+class LinearHistPlot(widgets.DOMWidget):
+    _view_name = Unicode('LinearHistPlotView').tag(sync=True)
+    _model_name = Unicode('LinearHistPlotModel').tag(sync=True)
+    _view_module = Unicode('custom-ipywidgets').tag(sync=True)
+    _model_module = Unicode('custom-ipywidgets').tag(sync=True)
+    _view_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
+    _model_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
+
+    linearData_x = List([]).tag(sync=True)
+    linearData_y = List([]).tag(sync=True)
+    histogramData = List([]).tag(sync=True)
+    clickedValue = Unicode().tag(sync=True)

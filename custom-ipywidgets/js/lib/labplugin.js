@@ -1,4 +1,4 @@
-import {LinearHistPlotModel, LinearHistPlotView, version} from './index';
+import {LinearHistPlotModel, LinearHistPlotView, ScatterPlotModel, ScatterPlotView, version} from './index';
 import {IJupyterWidgetRegistry} from '@jupyter-widgets/base';
 
 export const helloWidgetPlugin = {
@@ -8,7 +8,7 @@ export const helloWidgetPlugin = {
       widgets.registerWidget({
           name: 'custom-ipywidgets',
           version: version,
-          exports: { LinearHistPlotModel, LinearHistPlotView }
+          exports: { LinearHistPlotModel, LinearHistPlotView, ScatterPlotModel, ScatterPlotView }
       });
   },
   autoStart: true

@@ -17,3 +17,16 @@ class LinearHistPlot(widgets.DOMWidget):
     linearData_y = List([]).tag(sync=True)
     histogramData = List([]).tag(sync=True)
     clickedValue = Unicode().tag(sync=True)
+    
+class ScatterPlot(widgets.DOMWidget):
+    _view_name = Unicode('ScatterPlotView').tag(sync=True)
+    _model_name = Unicode('ScatterPlotModel').tag(sync=True)
+    _view_module = Unicode('custom-ipywidgets').tag(sync=True)
+    _model_module = Unicode('custom-ipywidgets').tag(sync=True)
+    _view_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
+    _model_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
+
+    data = List([]).tag(sync=True)
+    x = Unicode().tag(sync=True)
+    y = Unicode().tag(sync=True)
+    hue = Unicode().tag(sync=True)

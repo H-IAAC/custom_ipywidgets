@@ -1,5 +1,6 @@
 import { DOMWidgetModel, DOMWidgetView } from "@jupyter-widgets/base";
 import { linearhistplot } from './graphs/linearhistplot';
+import { scatterplot } from './graphs/scatterplot';
 const data = require('../../package.json');
 
 export class LinearHistPlotModel extends DOMWidgetModel {
@@ -20,10 +21,10 @@ export class LinearHistPlotModel extends DOMWidgetModel {
     };
   }
 
-  static model_name = "ScatterplotModel";
+  static model_name = "LinearHistPlotModel";
   static model_module = data.name;
   static model_module_version = data.version;
-  static view_name = "ScatterplotView"; // Set to null if no view
+  static view_name = "LinearHistPlotView"; // Set to null if no view
   static view_module = data.name; // Set to null if no view
   static view_module_version = data.version;
 }
@@ -54,5 +55,58 @@ export class LinearHistPlotView extends DOMWidgetView {
   setValue(text, that) {
     that.model.set({ clickedValue: text });
     that.model.save_changes();
+  }
+}
+
+export class ScatterPlotModel extends DOMWidgetModel {
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_name: ScatterPlotModel.model_name,
+      _view_name: ScatterPlotModel.view_name,
+      _model_module: ScatterPlotModel.model_module,
+      _view_module: ScatterPlotModel.view_module,
+      _model_module_version: ScatterPlotModel.model_module_version,
+      _view_module_version: ScatterPlotModel.view_module_version,
+
+      data: [],
+      x: String,
+      y: String,
+      hue: String,
+    };
+  }
+
+  static model_name = "ScatterplotModel";
+  static model_module = data.name;
+  static model_module_version = data.version;
+  static view_name = "ScatterplotView"; // Set to null if no view
+  static view_module = data.name; // Set to null if no view
+  static view_module_version = data.version;
+}
+
+export class ScatterPlotView extends DOMWidgetView {
+  render() {
+    this.value_changed();
+
+    // Observe and act on future changes to the value attribute
+    this.model.on("change:data", this.value_changed, this);
+  }
+
+  value_changed() {
+    let that = this;
+
+    var data = this.model.get('data');
+    var x = this.model.get('x');
+    var y = this.model.get('y');
+    var hue = this.model.get('hue');
+    console.log(data)
+
+    scatterplot(
+      data,
+      x,
+      y,
+      hue,
+      that.el
+    );
   }
 }

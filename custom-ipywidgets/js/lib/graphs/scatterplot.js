@@ -1,10 +1,8 @@
-import * as d3 from 'd3';
+import * as d3 from "d3";
 
 export function scatterplot(data, x_value, y_value, hue, element) {
-  d3.select(element)
-  .selectAll("*")
-  .remove();
-  
+  d3.select(element).selectAll("*").remove();
+
   var margin = { top: 20, right: 20, bottom: 30, left: 40 },
     // ****    width = 960 - margin.left - margin.right, ****
     // ****    height = 500 - margin.top - margin.bottom; ****
@@ -21,6 +19,27 @@ export function scatterplot(data, x_value, y_value, hue, element) {
 
   var yAxis = d3.axisLeft(y);
 
+  function mouseover(event, d) {
+    focus.style("opacity", 1);
+    focusText.style("opacity", 1);
+    focus.attr("x", event.offsetX - 30).attr("y", event.offsetY - 40);
+    focusText
+      .html(
+        "x: " +
+          Math.round(d[x_value] * 10) / 10 +
+          "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+          "y: " +
+          Math.round(d[y_value] * 10) / 10
+      )
+      .attr("x", event.offsetX - 15)
+      .attr("y", event.offsetY - 20);
+  }
+
+  function mouseout() {
+    focus.style("opacity", 0);
+    focusText.style("opacity", 0);
+  }
+
   var svg = d3
     .select(element)
     .append("svg")
@@ -28,11 +47,6 @@ export function scatterplot(data, x_value, y_value, hue, element) {
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  // data.forEach(function (d) {
-  //   d.sepalLength = +d.sepalLength;
-  //   d.sepalWidth = +d.sepalWidth;
-  // });
 
   x.domain(
     d3.extent(data, function (d) {
@@ -67,6 +81,24 @@ export function scatterplot(data, x_value, y_value, hue, element) {
     .attr("dy", ".71em")
     .style("text-anchor", "end");
 
+  const focus = svg
+    .append("g")
+    .append("rect")
+    .style("fill", "none")
+    .attr("width", 160)
+    .attr("height", 40)
+    .attr("stroke", "#69b3a2")
+    .attr("stroke-width", 4)
+    .style("opacity", 0);
+
+  var focusText = svg
+    .append("g")
+    .append("text")
+    .style("opacity", 0)
+    .attr("text-anchor", "left")
+    .attr("alignment-baseline", "middle")
+    .html("lkjdslkfjsd");
+
   svg
     .selectAll(".dot")
     .data(data)
@@ -82,7 +114,9 @@ export function scatterplot(data, x_value, y_value, hue, element) {
     })
     .style("fill", function (d) {
       return color(d[hue]);
-    });
+    })
+    .on("mouseover", mouseover)
+    .on("mouseout", mouseout);
 
   var legend = svg
     .selectAll(".legend")

@@ -99,7 +99,6 @@ export class ScatterPlotView extends DOMWidgetView {
     var x = this.model.get('x');
     var y = this.model.get('y');
     var hue = this.model.get('hue');
-    console.log(data)
 
     scatterplot(
       data,

@@ -1,6 +1,14 @@
 import * as d3 from "d3";
 
-export function scatterplot(data, x_value, y_value, hue, setValue, that, element) {
+export function scatterplot(
+  data,
+  x_value,
+  y_value,
+  hue,
+  setValue,
+  that,
+  element
+) {
   d3.select(element).selectAll("*").remove();
 
   var margin = { top: 20, right: 20, bottom: 30, left: 40 },
@@ -91,24 +99,6 @@ export function scatterplot(data, x_value, y_value, hue, setValue, that, element
     .attr("dy", ".71em")
     .style("text-anchor", "end");
 
-  const focus = svg
-    .append("g")
-    .append("rect")
-    .style("fill", "none")
-    .attr("width", 160)
-    .attr("height", 40)
-    .attr("stroke", "#69b3a2")
-    .attr("stroke-width", 4)
-    .style("opacity", 0);
-
-  var focusText = svg
-    .append("g")
-    .append("text")
-    .style("opacity", 0)
-    .attr("text-anchor", "left")
-    .attr("alignment-baseline", "middle")
-    .html("lkjdslkfjsd");
-
   svg
     .selectAll(".dot")
     .data(data)
@@ -155,4 +145,22 @@ export function scatterplot(data, x_value, y_value, hue, setValue, that, element
     .text(function (d) {
       return d;
     });
+
+  const focus = svg
+    .append("g")
+    .append("rect")
+    .style("fill", "none")
+    .attr("width", 160)
+    .attr("height", 40)
+    .attr("stroke", "#69b3a2")
+    .attr("stroke-width", 4)
+    .style("opacity", 0);
+
+  var focusText = svg
+    .append("g")
+    .append("text")
+    .style("opacity", 0)
+    .attr("text-anchor", "left")
+    .attr("alignment-baseline", "middle")
+    .html("lkjdslkfjsd");
 }

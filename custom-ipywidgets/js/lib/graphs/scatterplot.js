@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-export function scatterplot(data, x_value, y_value, hue, element) {
+export function scatterplot(data, x_value, y_value, hue, setValue, that, element) {
   d3.select(element).selectAll("*").remove();
 
   var margin = { top: 20, right: 20, bottom: 30, left: 40 },
@@ -38,6 +38,16 @@ export function scatterplot(data, x_value, y_value, hue, element) {
   function mouseout() {
     focus.style("opacity", 0);
     focusText.style("opacity", 0);
+  }
+
+  function mouseClick(event, d) {
+    const text =
+      "x:" +
+      Math.round(d[x_value] * 10) / 10 +
+      "    " +
+      "y:" +
+      Math.round(d[y_value] * 10) / 10;
+    setValue(text, that);
   }
 
   var svg = d3
@@ -116,7 +126,8 @@ export function scatterplot(data, x_value, y_value, hue, element) {
       return color(d[hue]);
     })
     .on("mouseover", mouseover)
-    .on("mouseout", mouseout);
+    .on("mouseout", mouseout)
+    .on("click", mouseClick);
 
   var legend = svg
     .selectAll(".legend")

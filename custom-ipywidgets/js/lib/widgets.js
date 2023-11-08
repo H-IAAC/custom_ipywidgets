@@ -73,6 +73,7 @@ export class ScatterPlotModel extends DOMWidgetModel {
       x: String,
       y: String,
       hue: String,
+      clickedValue: String,
     };
   }
 
@@ -105,7 +106,14 @@ export class ScatterPlotView extends DOMWidgetView {
       x,
       y,
       hue,
+      this.setValue,
+      that,
       that.el
     );
+  }
+
+  setValue(text, that) {
+    that.model.set({ clickedValue: text });
+    that.model.save_changes();
   }
 }

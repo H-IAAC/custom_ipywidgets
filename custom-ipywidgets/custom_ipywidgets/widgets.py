@@ -30,3 +30,4 @@ class ScatterPlot(widgets.DOMWidget):
     x = Unicode().tag(sync=True)
     y = Unicode().tag(sync=True)
     hue = Unicode().tag(sync=True)
+    clickedValue = Unicode().tag(sync=True)

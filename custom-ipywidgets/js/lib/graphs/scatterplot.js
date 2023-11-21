@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import { lasso } from "../tools/lasso";
 
 export function scatterplot(
   data,
@@ -6,9 +7,13 @@ export function scatterplot(
   y_value,
   hue,
   setValue,
+  setSelectedValues,
   that,
   element
 ) {
+  for (let i = 0; i < data.length; i++) {
+    data[i]["id"] = i;
+  }
   d3.select(element).selectAll("*").remove();
 
   var margin = { top: 20, right: 20, bottom: 30, left: 40 },
@@ -104,6 +109,9 @@ export function scatterplot(
     .data(data)
     .enter()
     .append("circle")
+    .attr("id", function (d, i) {
+      return "dot-" + d.id;
+    })
     .attr("class", "dot")
     .attr("r", 3.5)
     .attr("cx", function (d) {
@@ -118,6 +126,22 @@ export function scatterplot(
     .on("mouseover", mouseover)
     .on("mouseout", mouseout)
     .on("click", mouseClick);
+
+  function resetColor() {
+    svg
+      .selectAll(".dot")
+      .data(data)
+      .attr("r", 3.5)
+      .style("fill", function (d) {
+        return color(d[hue]);
+      });
+  }
+
+  function setLassoValues(values) {
+    setSelectedValues(values, that)
+  }
+
+  lasso(element, x, y, x_value, y_value, margin.left, margin.top, resetColor, setLassoValues);
 
   var legend = svg
     .selectAll(".legend")
@@ -161,6 +185,5 @@ export function scatterplot(
     .append("text")
     .style("opacity", 0)
     .attr("text-anchor", "left")
-    .attr("alignment-baseline", "middle")
-    .html("lkjdslkfjsd");
+    .attr("alignment-baseline", "middle");
 }

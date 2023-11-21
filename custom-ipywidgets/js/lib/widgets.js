@@ -1,6 +1,7 @@
 import { DOMWidgetModel, DOMWidgetView } from "@jupyter-widgets/base";
 import { linearhistplot } from './graphs/linearhistplot';
 import { scatterplot } from './graphs/scatterplot';
+import "../css/widget.css"
 const data = require('../../package.json');
 
 export class LinearHistPlotModel extends DOMWidgetModel {
@@ -74,6 +75,7 @@ export class ScatterPlotModel extends DOMWidgetModel {
       y: String,
       hue: String,
       clickedValue: String,
+      selectedValues: []
     };
   }
 
@@ -107,6 +109,7 @@ export class ScatterPlotView extends DOMWidgetView {
       y,
       hue,
       this.setValue,
+      this.setSelectedValues,
       that,
       that.el
     );
@@ -114,6 +117,11 @@ export class ScatterPlotView extends DOMWidgetView {
 
   setValue(text, that) {
     that.model.set({ clickedValue: text });
+    that.model.save_changes();
+  }
+
+  setSelectedValues(values, that) {
+    that.model.set({ selectedValues: values });
     that.model.save_changes();
   }
 }

@@ -138,10 +138,20 @@ export function scatterplot(
   }
 
   function setLassoValues(values) {
-    setSelectedValues(values, that)
+    setSelectedValues(values, that);
   }
 
-  lasso(element, x, y, x_value, y_value, margin.left, margin.top, resetColor, setLassoValues);
+  lasso(
+    element,
+    x,
+    y,
+    x_value,
+    y_value,
+    margin.left,
+    margin.top,
+    resetColor,
+    setLassoValues
+  );
 
   var legend = svg
     .selectAll(".legend")

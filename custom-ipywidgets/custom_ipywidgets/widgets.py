@@ -1,5 +1,5 @@
 import ipywidgets as widgets
-from traitlets import Unicode, List
+from traitlets import Unicode, List, Float
 from ._version import NPM_PACKAGE_RANGE
 
 # See js/lib/example.js for the frontend counterpart to this file.
@@ -48,3 +48,16 @@ class BarPlot(widgets.DOMWidget):
     x = Unicode().tag(sync=True)
     y = Unicode().tag(sync=True)
     hue = Unicode().tag(sync=True)
+    
+class HistogramPlot(widgets.DOMWidget):
+    _view_name = Unicode("HistogramPlotView").tag(sync=True)
+    _model_name = Unicode("HistogramPlotModel").tag(sync=True)
+    _view_module = Unicode("custom-ipywidgets").tag(sync=True)
+    _model_module = Unicode("custom-ipywidgets").tag(sync=True)
+    _view_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
+    _model_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
+
+    data = List([]).tag(sync=True)
+    x = Unicode().tag(sync=True)
+    start = Float().tag(sync=True)
+    end = Float().tag(sync=True)

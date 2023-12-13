@@ -5,6 +5,8 @@ import {
   ScatterPlotView,
   BarPlotModel,
   BarPlotView,
+  HistogramPlotModel,
+  HistogramPlotView,
   version,
 } from "./index";
 import { IJupyterWidgetRegistry } from "@jupyter-widgets/base";
@@ -23,6 +25,8 @@ export const helloWidgetPlugin = {
         ScatterPlotView,
         BarPlotModel,
         BarPlotView,
+        HistogramPlotModel,
+        HistogramPlotView,
       },
     });
   },

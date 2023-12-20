@@ -10,8 +10,19 @@ export function barplot(data, x_axis, y_axis, hue_axis, element) {
   var svg = d3
     .select(element)
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr(
+      "viewBox",
+      "0 0 " +
+        (width +
+        margin.left +
+        margin.right) +
+        " " +
+        (height +
+        margin.top +
+        margin.bottom)
+    )
+    .attr("width", "auto")
+    .attr("height", "auto")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -189,8 +200,6 @@ export function barplot(data, x_axis, y_axis, hue_axis, element) {
       newRow = { ...newRow, ...result[key] };
       return newRow;
     });
-    console.log(result);
-    console.log(values);
 
     Object.keys(values).forEach((key) => {
       allHues.forEach((h) => {
@@ -208,7 +217,6 @@ export function barplot(data, x_axis, y_axis, hue_axis, element) {
     Object.keys(values).map((key) => {
       allHues.forEach((h) => all_min_max.push(values[key][h]));
     });
-    console.log(all_min_max);
 
     let y_domain = [];
     y_domain.push(d3.min(all_min_max, (v) => v.min));

@@ -5,7 +5,8 @@ export function linearhistplot(
   linearData_y,
   histogramData,
   element,
-  setValue
+  setValue,
+  that
 ) {
   d3.select(element).selectAll("*").remove();
 
@@ -14,14 +15,8 @@ export function linearhistplot(
   const height = 375 - margin.top - margin.bottom;
   const heightHist = 80 - margin.top - margin.bottom;
 
-  const xMin = Math.min(
-    d3.min(linearData_x),
-    d3.min(histogramData)
-  );
-  const xMax = Math.max(
-    d3.max(linearData_x),
-    d3.max(histogramData)
-  );
+  const xMin = Math.min(d3.min(linearData_x), d3.min(histogramData));
+  const xMax = Math.max(d3.max(linearData_x), d3.max(histogramData));
 
   const x = d3.scaleLinear().range([0, width]);
 
@@ -39,10 +34,10 @@ export function linearhistplot(
     focusText
       .html(
         "x:" +
-          Math.round(d['x'] * 10) / 10 +
+          Math.round(d["x"] * 10) / 10 +
           "  -  " +
           "y:" +
-          Math.round(d['y'] * 10) / 10
+          Math.round(d["y"] * 10) / 10
       )
       .attr("x", event.x - 15)
       .attr("y", event.y - 20);
@@ -56,11 +51,13 @@ export function linearhistplot(
   function mouseClick(event, d) {
     const text =
       "x:" +
-      Math.round(d['x'] * 10) / 10 +
+      Math.round(d["x"] * 10) / 10 +
       "  -  " +
       "y:" +
-      Math.round(d['y'] * 10) / 10;
-    setValue(text);
+      Math.round(d["y"] * 10) / 10;
+    if (setValue !== undefined) {
+      setValue(text, that);
+    }
   }
 
   const bins = d3
@@ -90,7 +87,7 @@ export function linearhistplot(
     .attr("stroke-width", 4)
     .style("opacity", 0);
 
-    var focusText = svg
+  var focusText = svg
     .append("g")
     .append("text")
     .style("opacity", 0)
@@ -131,11 +128,11 @@ export function linearhistplot(
         .curve(d3.curveCatmullRom)
     );
 
-  var coords = linearData_x.map(
-    (v, i) => [v, linearData_y[i]]).map(([x, y]) => ({x, y})
-    );
+  var coords = linearData_x
+    .map((v, i) => [v, linearData_y[i]])
+    .map(([x, y]) => ({ x, y }));
 
-    svg
+  svg
     .append("path")
     .datum(coords)
     .attr("fill", "none")
@@ -145,8 +142,8 @@ export function linearhistplot(
       "d",
       d3
         .line()
-        .x((d) => x(d['x']))
-        .y((d) => y(d['y']))
+        .x((d) => x(d["x"]))
+        .y((d) => y(d["y"]))
     );
 
   svg
@@ -156,8 +153,8 @@ export function linearhistplot(
     .append("circle")
     .attr("fill", "red")
     .attr("stroke", "none")
-    .attr("cx", (d) => x(d['x']))
-    .attr("cy", (d) => y(d['y']))
+    .attr("cx", (d) => x(d["x"]))
+    .attr("cy", (d) => y(d["y"]))
     .attr("r", 3)
     .on("mouseover", mouseover)
     .on("mouseout", mouseout)

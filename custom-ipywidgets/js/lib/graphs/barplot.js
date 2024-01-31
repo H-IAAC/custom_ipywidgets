@@ -21,8 +21,8 @@ export function barplot(data, x_axis, y_axis, hue_axis, element) {
         margin.top +
         margin.bottom)
     )
-    .attr("width", "auto")
-    .attr("height", "auto")
+    .attr("width", "100%")
+    .attr("height", "100%")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 

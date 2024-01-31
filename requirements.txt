@@ -2,3 +2,4 @@ ipywidgets
 jupyterlab
 pandas
 scikit-learn
+simplejson

@@ -6,10 +6,10 @@ export function scatterplot(
   x_value,
   y_value,
   hue,
+  element,
   setValue,
   setSelectedValues,
-  that,
-  element
+  that
 ) {
   for (let i = 0; i < data.length; i++) {
     data[i]["id"] = i;
@@ -60,7 +60,9 @@ export function scatterplot(
       "    " +
       "y:" +
       Math.round(d[y_value] * 10) / 10;
-    setValue(text, that);
+    if (setValue !== undefined) {
+      setValue(text, that);
+    }
   }
 
   var svg = d3
@@ -138,7 +140,9 @@ export function scatterplot(
   }
 
   function setLassoValues(values) {
-    setSelectedValues(values, that);
+    if (setSelectedValues !== undefined) {
+      setSelectedValues(values, that);
+    }
   }
 
   lasso(

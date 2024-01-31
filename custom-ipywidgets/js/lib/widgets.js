@@ -51,7 +51,8 @@ export class LinearHistPlotView extends DOMWidgetView {
       linearData_y,
       histogramData,
       this.el,
-      this.setValue
+      this.setValue,
+      that
     );
   }
 
@@ -110,14 +111,14 @@ export class ScatterPlotView extends DOMWidgetView {
       x,
       y,
       hue,
+      that.el,
       this.setValue,
       this.setSelectedValues,
-      that,
-      that.el
+      that
     );
   }
 
-  setValue(text, that) {
+  setValue(text) {
     that.model.set({ clickedValue: text });
     that.model.save_changes();
   }
@@ -174,7 +175,6 @@ export class BarPlotView extends DOMWidgetView {
   }
 }
 
-
 export class HistogramPlotModel extends DOMWidgetModel {
   defaults() {
     return {
@@ -220,4 +220,3 @@ export class HistogramPlotView extends DOMWidgetView {
     histogramplot(data, x, start, end, that.el);
   }
 }
-

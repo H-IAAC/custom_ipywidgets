@@ -1,6 +1,7 @@
 from ._version import __version__
 
 from .widgets import *
+from .embedding import Embedding
 
 
 def _jupyter_labextension_paths():

@@ -42,6 +42,7 @@ class ScatterPlot(widgets.DOMWidget):
     x = Unicode().tag(sync=True)
     y = Unicode().tag(sync=True)
     hue = Unicode().tag(sync=True)
+    ContainerID = Unicode().tag(sync=True)
     clickedValue = Unicode().tag(sync=True)
     selectedValues = List([]).tag(sync=True)
 
@@ -51,6 +52,7 @@ class ScatterPlot(widgets.DOMWidget):
             "x": self.x,
             "y": self.y,
             "hue": self.hue,
+            "ContainerID": self.ContainerID,
         }
 
         export_graph("scatterplot", 2, data)

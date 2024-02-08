@@ -1,0 +1,85 @@
+/* Estilo base */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #fff; /* Fondo blanco para un look limpio y minimalista */
+    color: #333; /* Texto en color oscuro para fácil lectura */
+    line-height: 1.6;
+  }
+  
+  /* Estilos para encabezados */
+  h1, h2, h3, h4, h5, h6 {
+    color: #333;
+    margin-top: 0;
+  }
+  
+  /* Estilos para párrafos */
+  p {
+    margin-bottom: 1em;
+  }
+  
+  /* Estilos para enlaces */
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Estilos para botones */
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos para divs */
+  .dashboard-div  {
+    margin-bottom: 5px;
+    padding: 20px;
+  }
+  
+  /* Estilos para contenedores y secciones */
+  .container {
+    width: 80%;
+    margin: 0 auto; /* Centrado con margen automático */
+  }
+  
+  .section {
+    margin-bottom: 2em;
+  }
+  
+  /* Estilos para formularios e inputs */
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  

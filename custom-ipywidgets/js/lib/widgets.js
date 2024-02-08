@@ -105,13 +105,14 @@ export class ScatterPlotView extends DOMWidgetView {
     var x = this.model.get("x");
     var y = this.model.get("y");
     var hue = this.model.get("hue");
+    var divID = this.model.get("ContainerID");
 
     scatterplot(
       data,
       x,
       y,
       hue,
-      that.el,
+      document.getElementById(divID),//that.el,
       this.setValue,
       this.setSelectedValues,
       that

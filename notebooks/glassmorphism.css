@@ -1,0 +1,85 @@
+/* Estilo base */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Se recomienda un fondo claro para el efecto Glassmorphism */
+    color: #333; /* Texto en color oscuro para contraste */
+  }
+  
+  /* Estilos para encabezados */
+  h1, h2, h3, h4, h5, h6 {
+    color: #333;
+  }
+  
+  /* Estilos para párrafos */
+  p {
+    line-height: 1.6;
+  }
+  
+  /* Estilos para enlaces */
+  a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Estilos para botones con efecto Glassmorphism */
+  button {
+    background: rgba(255, 255, 255, 0.2);
+    color: #333;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Estilos para divs con efecto Glassmorphism */
+  .dashboard-div  {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    background: rgb(255, 254, 254);
+    border: 1px solid rgb(255, 255, 255);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilos para formularios e inputs */
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: #333;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  input[type="submit"] {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    color: #333;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  

@@ -4,6 +4,7 @@ export function barplot(data, x_axis, y_axis, hue_axis, element, that) {
   var customHeight = 375;
   var customWidth = 720;
   if (element) {
+    element = document.getElementById(element)
     customWidth = element.clientWidth;
     customHeight = element.clientHeight;
   } else {

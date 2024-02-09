@@ -78,6 +78,7 @@ export class ScatterPlotModel extends DOMWidgetModel {
       x: String,
       y: String,
       hue: String,
+      element: String,
       clickedValue: String,
       selectedValues: [],
     };
@@ -106,13 +107,14 @@ export class ScatterPlotView extends DOMWidgetView {
     var x = this.model.get("x");
     var y = this.model.get("y");
     var hue = this.model.get("hue");
+    var element = this.model.get("element");
 
     scatterplot(
       data,
       x,
       y,
       hue,
-      "",
+      element,
       this.setValue,
       this.setSelectedValues,
       that
@@ -219,5 +221,65 @@ export class HistogramPlotView extends DOMWidgetView {
     var end = this.model.get("end");
 
     histogramplot(data, x, start, end, "", that);
+  }
+}
+
+export class EmbeddingModel extends DOMWidgetModel {
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_name: EmbeddingModel.model_name,
+      _view_name: EmbeddingModel.view_name,
+      _model_module: EmbeddingModel.model_module,
+      _view_module: EmbeddingModel.view_module,
+      _model_module_version: EmbeddingModel.model_module_version,
+      _view_module_version: EmbeddingModel.view_module_version,
+
+      matrix: [],
+      grid_areas: [],
+      grid_template_areas: String,
+    };
+  }
+
+  static model_name = "EmbeddingModel";
+  static model_module = data.name;
+  static model_module_version = data.version;
+  static view_name = "EmbeddingView"; // Set to null if no view
+  static view_module = data.name; // Set to null if no view
+  static view_module_version = data.version;
+}
+
+export class EmbeddingView extends DOMWidgetView {
+  render() {
+    this.value_changed();
+
+    // Observe and act on future changes to the value attribute
+    this.model.on("change:data", this.value_changed, this);
+  }
+
+  value_changed() {
+    let that = this;
+
+    var matrix = this.model.get("matrix");
+    var grid_areas = this.model.get("grid_areas");
+    var grid_template_areas = this.model.get("grid_template_areas");
+
+    const node = document.createElement("div");
+
+    node.style.display = "grid";
+    node.style.gridTemplateAreas = grid_template_areas;
+    node.style.gridTemplateRows = "repeat(" + matrix.length + ", 30vh)";
+    node.style.gridTemplateColumns = "repeat(" + matrix[0].length + ", 1fr)";
+    node.style.width = "100%";
+
+    grid_areas.forEach((area) => {
+      const grid_area = document.createElement("div");
+      grid_area.setAttribute("id", area);
+      grid_area.style.gridArea = area;
+      grid_area.setAttribute("class", "dashboard-div");
+      node.appendChild(grid_area);
+    });
+
+    that.el.appendChild(node);
   }
 }

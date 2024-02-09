@@ -1,23 +1,47 @@
-from ipywidgets import GridBox, Layout
+import random
+import string
+
+import ipywidgets as widgets
+from traitlets import Float, List, Unicode
+
+from ._version import NPM_PACKAGE_RANGE
+from IPython.display import display
 
 
-class Embedding(GridBox):
+@widgets.register
+class Embedding(widgets.DOMWidget):
+    _view_name = Unicode("EmbeddingView").tag(sync=True)
+    _model_name = Unicode("EmbeddingModel").tag(sync=True)
+    _view_module = Unicode("custom-ipywidgets").tag(sync=True)
+    _model_module = Unicode("custom-ipywidgets").tag(sync=True)
+    _view_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
+    _model_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
+
+    matrix = List().tag(sync=True)
+    grid_areas = List().tag(sync=True)
+    grid_template_areas = Unicode().tag(sync=True)
+
     def __init__(self, matrix, **kwargs):
         self._check_matrix_format(matrix)
         self.matrix = matrix
-        self.children_list = []
-        grid_template_areas = ""
+
+        self.positions_hashs = {}
+        self.grid_areas = []
+        for num in self.all_numbers:
+            random_string = "".join(
+                random.choice(string.ascii_letters) for i in range(10)
+            )
+            self.positions_hashs[num] = random_string
+            self.grid_areas.append(random_string)
+
+        self.grid_template_areas = ""
         for row in matrix:
-            grid_template_areas = grid_template_areas + '\n"'
+            self.grid_template_areas = self.grid_template_areas + '\n"'
             for num in row:
-                grid_template_areas = grid_template_areas + "ga" + str(num) + " "
-            grid_template_areas = grid_template_areas + '"'
-        self.layout = Layout(
-            width="100%",
-            grid_template_rows="repeat({}, 30vh)".format(len(matrix)),
-            grid_template_columns="repeat({}, 1fr)".format(len(matrix[0])),
-            grid_template_areas=grid_template_areas,
-        )
+                self.grid_template_areas = (
+                    self.grid_template_areas + self.positions_hashs[num] + " "
+                )
+            self.grid_template_areas = self.grid_template_areas + '"'
         super().__init__(**kwargs)
 
     def _check_matrix_format(self, matrix):
@@ -87,6 +111,5 @@ class Embedding(GridBox):
                     not_rects()
 
     def add(self, widget, position: int):
-        widget.layout.grid_area = "ga" + str(position)
-        self.children_list.append(widget)
-        self.children = self.children_list
+        widget.element = self.positions_hashs[position]
+        display(widget)

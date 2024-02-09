@@ -7,6 +7,8 @@ import {
   BarPlotView,
   HistogramPlotModel,
   HistogramPlotView,
+  EmbeddingModel,
+  EmbeddingView,
   version,
 } from "./index";
 import { IJupyterWidgetRegistry } from "@jupyter-widgets/base";
@@ -27,6 +29,8 @@ export const helloWidgetPlugin = {
         BarPlotView,
         HistogramPlotModel,
         HistogramPlotView,
+        EmbeddingModel,
+        EmbeddingView,
       },
     });
   },

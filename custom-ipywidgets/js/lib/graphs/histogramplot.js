@@ -4,6 +4,7 @@ export function histogramplot(data, x_axis, xStart, xEnd, element, that) {
   var customHeight = 375;
   var customWidth = 720;
   if (element) {
+    element = document.getElementById(element)
     customWidth = element.clientWidth;
     customHeight = element.clientHeight;
   } else {

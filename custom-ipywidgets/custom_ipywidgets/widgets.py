@@ -29,7 +29,7 @@ class LinearHistPlot(widgets.DOMWidget):
 
         export_graph("linearhistplot", 1, data)
 
-
+@widgets.register
 class ScatterPlot(widgets.DOMWidget):
     _view_name = Unicode("ScatterPlotView").tag(sync=True)
     _model_name = Unicode("ScatterPlotModel").tag(sync=True)
@@ -42,6 +42,7 @@ class ScatterPlot(widgets.DOMWidget):
     x = Unicode().tag(sync=True)
     y = Unicode().tag(sync=True)
     hue = Unicode().tag(sync=True)
+    element = Unicode().tag(sync=True)
     clickedValue = Unicode().tag(sync=True)
     selectedValues = List([]).tag(sync=True)
 
@@ -56,7 +57,7 @@ class ScatterPlot(widgets.DOMWidget):
         export_graph("scatterplot", 2, data)
         export_lasso()
 
-
+@widgets.register
 class BarPlot(widgets.DOMWidget):
     _view_name = Unicode("BarPlotView").tag(sync=True)
     _model_name = Unicode("BarPlotModel").tag(sync=True)
@@ -80,7 +81,7 @@ class BarPlot(widgets.DOMWidget):
 
         export_graph("barplot", 1, data)
 
-
+@widgets.register
 class HistogramPlot(widgets.DOMWidget):
     _view_name = Unicode("HistogramPlotView").tag(sync=True)
     _model_name = Unicode("HistogramPlotModel").tag(sync=True)

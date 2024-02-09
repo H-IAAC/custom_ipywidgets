@@ -21,6 +21,7 @@ export function scatterplot(
   var customHeight = 375;
   var customWidth = 720;
   if (element) {
+    element = document.getElementById(element)
     customWidth = element.clientWidth;
     customHeight = element.clientHeight;
   } else {

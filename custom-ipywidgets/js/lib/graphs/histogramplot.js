@@ -1,18 +1,26 @@
 import * as d3 from "d3";
 
-export function histogramplot(data, x_axis, xStart, xEnd, element) {
+export function histogramplot(data, x_axis, xStart, xEnd, element, that) {
+  var customHeight = 375;
+  var customWidth = 720;
+  if (element) {
+    customWidth = element.clientWidth;
+    customHeight = element.clientHeight;
+  } else {
+    element = that.el;
+  }
   d3.select(element).selectAll("*").remove();
 
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-  const width = 720 - margin.left - margin.right;
-  const height = 375 - margin.top - margin.bottom;
+  const width = customWidth - margin.left - margin.right;
+  const height = customHeight - margin.top - margin.bottom;
 
-  let xMin = xStart 
-  if(!xStart){
+  let xMin = xStart;
+  if (!xStart) {
     xMin = d3.min(data, (d) => d[x_axis]);
   }
-  let xMax = xEnd 
-  if(!xEnd){
+  let xMax = xEnd;
+  if (!xEnd) {
     xMax = d3.max(data, (d) => d[x_axis]);
   }
 

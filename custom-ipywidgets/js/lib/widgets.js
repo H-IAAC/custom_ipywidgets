@@ -46,11 +46,12 @@ export class LinearHistPlotView extends DOMWidgetView {
     var linearData_x = this.model.get("linearData_x");
     var linearData_y = this.model.get("linearData_y");
     var histogramData = this.model.get("histogramData");
+
     linearhistplot(
       linearData_x,
       linearData_y,
       histogramData,
-      this.el,
+      "",
       this.setValue,
       that
     );
@@ -111,7 +112,7 @@ export class ScatterPlotView extends DOMWidgetView {
       x,
       y,
       hue,
-      that.el,
+      "",
       this.setValue,
       this.setSelectedValues,
       that
@@ -171,7 +172,7 @@ export class BarPlotView extends DOMWidgetView {
     var y = this.model.get("y");
     var hue = this.model.get("hue");
 
-    barplot(data, x, y, hue, that.el);
+    barplot(data, x, y, hue, "", that);
   }
 }
 
@@ -217,6 +218,6 @@ export class HistogramPlotView extends DOMWidgetView {
     var start = this.model.get("start");
     var end = this.model.get("end");
 
-    histogramplot(data, x, start, end, that.el);
+    histogramplot(data, x, start, end, "", that);
   }
 }

@@ -14,13 +14,23 @@ export function scatterplot(
   for (let i = 0; i < data.length; i++) {
     data[i]["id"] = i;
   }
+
+  var randomString = Math.floor(Math.random() * Date.now() * 10000).toString(
+    36
+  );
+  var customHeight = 375;
+  var customWidth = 720;
+  if (element) {
+    customWidth = element.clientWidth;
+    customHeight = element.clientHeight;
+  } else {
+    element = that.el;
+  }
   d3.select(element).selectAll("*").remove();
 
-  var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-    // ****    width = 960 - margin.left - margin.right, ****
-    // ****    height = 500 - margin.top - margin.bottom; ****
-    width = 720 - margin.left - margin.right,
-    height = 375 - margin.top - margin.bottom;
+  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+  const width = customWidth - margin.left - margin.right;
+  const height = customHeight - margin.top - margin.bottom;
 
   var x = d3.scaleLinear().range([0, width]);
 
@@ -112,7 +122,7 @@ export function scatterplot(
     .enter()
     .append("circle")
     .attr("id", function (d, i) {
-      return "dot-" + d.id;
+      return "dot-" + randomString + d.id;
     })
     .attr("class", "dot")
     .attr("r", 3.5)
@@ -154,7 +164,8 @@ export function scatterplot(
     margin.left,
     margin.top,
     resetColor,
-    setLassoValues
+    setLassoValues,
+    randomString
   );
 
   var legend = svg

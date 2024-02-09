@@ -8,12 +8,20 @@ export function linearhistplot(
   setValue,
   that
 ) {
+  var customHeight = 375;
+  var customWidth = 720;
+  if (element) {
+    customWidth = element.clientWidth;
+    customHeight = element.clientHeight;
+  } else {
+    element = that.el;
+  }
   d3.select(element).selectAll("*").remove();
 
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-  const width = 720 - margin.left - margin.right;
-  const height = 375 - margin.top - margin.bottom;
-  const heightHist = 80 - margin.top - margin.bottom;
+  const width = customWidth - margin.left - margin.right;
+  const height = customHeight - margin.top - margin.bottom;
+  const heightHist = customHeight / 5 - margin.top - margin.bottom;
 
   const xMin = Math.min(d3.min(linearData_x), d3.min(histogramData));
   const xMax = Math.max(d3.max(linearData_x), d3.max(histogramData));

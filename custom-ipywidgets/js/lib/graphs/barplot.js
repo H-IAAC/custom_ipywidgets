@@ -1,28 +1,25 @@
 import * as d3 from "d3";
 
-export function barplot(data, x_axis, y_axis, hue_axis, element) {
+export function barplot(data, x_axis, y_axis, hue_axis, element, that) {
+  var customHeight = 375;
+  var customWidth = 720;
+  if (element) {
+    customWidth = element.clientWidth;
+    customHeight = element.clientHeight;
+  } else {
+    element = that.el;
+  }
   d3.select(element).selectAll("*").remove();
 
-  var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-    width = 720 - margin.left - margin.right,
-    height = 375 - margin.top - margin.bottom;
+  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+  const width = customWidth - margin.left - margin.right;
+  const height = customHeight - margin.top - margin.bottom;
 
   var svg = d3
     .select(element)
     .append("svg")
-    .attr(
-      "viewBox",
-      "0 0 " +
-        (width +
-        margin.left +
-        margin.right) +
-        " " +
-        (height +
-        margin.top +
-        margin.bottom)
-    )
-    .attr("width", "100%")
-    .attr("height", "100%")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 

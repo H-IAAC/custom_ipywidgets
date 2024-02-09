@@ -1,11 +1,22 @@
 import * as d3 from "d3";
 
-export function lasso(element, xScale, yScale, x_value, y_value, x_translate, y_translate, resetColor, setLassoValues) {
+export function lasso(
+  element,
+  xScale,
+  yScale,
+  x_value,
+  y_value,
+  x_translate,
+  y_translate,
+  resetColor,
+  setLassoValues,
+  randomString
+) {
   // const PATH_COLOR = "black"
   // const PATH_BACKGROUND_COLOR = "#00000054"
-  const PATH_COLOR = "blue"
-  const PATH_BACKGROUND_COLOR = "#00008854"
-  const SELECTED_DOTS_COLOR = "red"
+  const PATH_COLOR = "blue";
+  const PATH_BACKGROUND_COLOR = "#00008854";
+  const SELECTED_DOTS_COLOR = "red";
 
   let coords = [];
   const lineGenerator = d3.line();
@@ -32,7 +43,7 @@ export function lasso(element, xScale, yScale, x_value, y_value, x_translate, y_
   const circles = d3.select(element).selectAll(".dot");
 
   function drawPath() {
-    d3.select("#lasso")
+    d3.select("#lasso" + randomString)
       .style("stroke", PATH_COLOR)
       .style("stroke-width", 2)
       .style("fill", PATH_BACKGROUND_COLOR)
@@ -41,8 +52,8 @@ export function lasso(element, xScale, yScale, x_value, y_value, x_translate, y_
 
   function dragStart() {
     coords = [];
-    resetColor()
-    d3.select(element).select("svg").append("path").attr("id", "lasso");
+    resetColor();
+    d3.select(element).select("svg").append("path").attr("id", "lasso" + randomString);
   }
 
   function dragMove(event) {
@@ -55,14 +66,19 @@ export function lasso(element, xScale, yScale, x_value, y_value, x_translate, y_
   function dragEnd() {
     let selectedDots = [];
     circles.each((d, i) => {
-      let point = [xScale(d[x_value]) + x_translate, yScale(d[y_value]) + y_translate];
+      let point = [
+        xScale(d[x_value]) + x_translate,
+        yScale(d[y_value]) + y_translate,
+      ];
       if (pointInPolygon(point, coords)) {
-        d3.select("#dot-" + d.id).style("fill", SELECTED_DOTS_COLOR).attr("r", 6);
+        d3.select("#dot-" + randomString + d.id)
+          .style("fill", SELECTED_DOTS_COLOR)
+          .attr("r", 6);
         selectedDots.push(d);
       }
     });
-    d3.select("#lasso").remove();
-    setLassoValues(selectedDots)
+    d3.select("#lasso" + randomString).remove();
+    setLassoValues(selectedDots);
   }
 
   const drag = d3

@@ -252,6 +252,7 @@ export class EmbeddingModel extends DOMWidgetModel {
       matrix: [],
       grid_areas: [],
       grid_template_areas: String,
+      style: String,
     };
   }
 
@@ -277,9 +278,15 @@ export class EmbeddingView extends DOMWidgetView {
     var matrix = this.model.get("matrix");
     var grid_areas = this.model.get("grid_areas");
     var grid_template_areas = this.model.get("grid_template_areas");
+    var style = this.model.get("style");
+
+    if(!style ){
+      style="basic"
+    }
 
     const node = document.createElement("div");
 
+    node.setAttribute("class", style)
     node.style.display = "grid";
     node.style.gridTemplateAreas = grid_template_areas;
     node.style.gridTemplateRows = "repeat(" + matrix.length + ", 30vh)";

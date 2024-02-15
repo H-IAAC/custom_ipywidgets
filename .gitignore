@@ -6,3 +6,4 @@ profile_default/
 ipython_config.py
 
 notebooks/export/
+data/ScatterPlot/tsne_results.csv

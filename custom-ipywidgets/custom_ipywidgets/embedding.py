@@ -20,6 +20,7 @@ class Embedding(widgets.DOMWidget):
     matrix = List().tag(sync=True)
     grid_areas = List().tag(sync=True)
     grid_template_areas = Unicode().tag(sync=True)
+    style = Unicode().tag(sync=True)
 
     def __init__(self, matrix, **kwargs):
         self._is_displayed = False

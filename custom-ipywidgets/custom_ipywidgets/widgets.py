@@ -85,6 +85,12 @@ class BarPlot(widgets.DOMWidget):
 
         export_graph("barplot", 1, data)
 
+    def linkData(self, widget, widgetAttr):
+        def callback(change):
+            self.data = getattr(widget, widgetAttr)
+
+        widget.observe(callback, names=[widgetAttr])
+
 
 @widgets.register
 class HistogramPlot(widgets.DOMWidget):

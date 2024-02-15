@@ -20,6 +20,7 @@ export class LinearHistPlotModel extends DOMWidgetModel {
       linearData_x: [],
       linearData_y: [],
       histogramData: [],
+      element: String,
       clickedValue: String,
     };
   }
@@ -46,15 +47,18 @@ export class LinearHistPlotView extends DOMWidgetView {
     var linearData_x = this.model.get("linearData_x");
     var linearData_y = this.model.get("linearData_y");
     var histogramData = this.model.get("histogramData");
+    var element = this.model.get("element");
 
-    linearhistplot(
-      linearData_x,
-      linearData_y,
-      histogramData,
-      "",
-      this.setValue,
-      that
-    );
+    setTimeout(() => {
+      linearhistplot(
+        linearData_x,
+        linearData_y,
+        histogramData,
+        element,
+        this.setValue,
+        that
+      );
+    }, 50);
   }
 
   setValue(text, that) {
@@ -109,16 +113,18 @@ export class ScatterPlotView extends DOMWidgetView {
     var hue = this.model.get("hue");
     var element = this.model.get("element");
 
-    scatterplot(
-      data,
-      x,
-      y,
-      hue,
-      element,
-      this.setValue,
-      this.setSelectedValues,
-      that
-    );
+    setTimeout(() => {
+      scatterplot(
+        data,
+        x,
+        y,
+        hue,
+        element,
+        this.setValue,
+        this.setSelectedValues,
+        that
+      );
+    }, 50);
   }
 
   setValue(text) {
@@ -147,6 +153,7 @@ export class BarPlotModel extends DOMWidgetModel {
       x: String,
       y: String,
       hue: String,
+      element: String,
     };
   }
 
@@ -173,8 +180,11 @@ export class BarPlotView extends DOMWidgetView {
     var x = this.model.get("x");
     var y = this.model.get("y");
     var hue = this.model.get("hue");
+    var element = this.model.get("element");
 
-    barplot(data, x, y, hue, "", that);
+    setTimeout(() => {
+      barplot(data, x, y, hue, element, that);
+    }, 50);
   }
 }
 
@@ -193,6 +203,7 @@ export class HistogramPlotModel extends DOMWidgetModel {
       x: String,
       start: Number,
       end: Number,
+      element: String,
     };
   }
 
@@ -219,8 +230,11 @@ export class HistogramPlotView extends DOMWidgetView {
     var x = this.model.get("x");
     var start = this.model.get("start");
     var end = this.model.get("end");
+    var element = this.model.get("element");
 
-    histogramplot(data, x, start, end, "", that);
+    setTimeout(() => {
+      histogramplot(data, x, start, end, element, that);
+    }, 50);
   }
 }
 

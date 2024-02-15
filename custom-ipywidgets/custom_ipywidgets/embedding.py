@@ -22,6 +22,8 @@ class Embedding(widgets.DOMWidget):
     grid_template_areas = Unicode().tag(sync=True)
 
     def __init__(self, matrix, **kwargs):
+        self._is_displayed = False
+        self._widgets_to_display = {}
         self._check_matrix_format(matrix)
         self.matrix = matrix
 
@@ -111,5 +113,15 @@ class Embedding(widgets.DOMWidget):
                     not_rects()
 
     def add(self, widget, position: int):
-        widget.element = self.positions_hashs[position]
-        display(widget)
+        if self._is_displayed:
+            widget.element = self.positions_hashs[position]
+            display(widget)
+        else:
+            self._widgets_to_display[position] = widget
+
+    def _repr_html_(self):
+        self._is_displayed = True
+        for key in self._widgets_to_display.keys():
+            widget = self._widgets_to_display[key]
+            widget.element = self.positions_hashs[key]
+            display(widget)

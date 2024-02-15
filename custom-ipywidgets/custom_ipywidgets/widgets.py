@@ -18,6 +18,7 @@ class LinearHistPlot(widgets.DOMWidget):
     linearData_x = List([]).tag(sync=True)
     linearData_y = List([]).tag(sync=True)
     histogramData = List([]).tag(sync=True)
+    element = Unicode().tag(sync=True)
     clickedValue = Unicode().tag(sync=True)
 
     def export(self):
@@ -28,6 +29,7 @@ class LinearHistPlot(widgets.DOMWidget):
         }
 
         export_graph("linearhistplot", 1, data)
+
 
 @widgets.register
 class ScatterPlot(widgets.DOMWidget):
@@ -57,6 +59,7 @@ class ScatterPlot(widgets.DOMWidget):
         export_graph("scatterplot", 2, data)
         export_lasso()
 
+
 @widgets.register
 class BarPlot(widgets.DOMWidget):
     _view_name = Unicode("BarPlotView").tag(sync=True)
@@ -70,6 +73,7 @@ class BarPlot(widgets.DOMWidget):
     x = Unicode().tag(sync=True)
     y = Unicode().tag(sync=True)
     hue = Unicode().tag(sync=True)
+    element = Unicode().tag(sync=True)
 
     def export(self):
         data = {
@@ -80,6 +84,7 @@ class BarPlot(widgets.DOMWidget):
         }
 
         export_graph("barplot", 1, data)
+
 
 @widgets.register
 class HistogramPlot(widgets.DOMWidget):
@@ -94,7 +99,8 @@ class HistogramPlot(widgets.DOMWidget):
     x = Unicode().tag(sync=True)
     start = Float().tag(sync=True)
     end = Float().tag(sync=True)
-    
+    element = Unicode().tag(sync=True)
+
     def export(self):
         data = {
             "data": self.data,

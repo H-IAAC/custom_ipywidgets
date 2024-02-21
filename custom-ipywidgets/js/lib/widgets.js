@@ -286,7 +286,7 @@ export class EmbeddingView extends DOMWidgetView {
 
     const node = document.createElement("div");
 
-    node.setAttribute("class", style)
+    node.classList.add(style)
     node.style.display = "grid";
     node.style.gridTemplateAreas = grid_template_areas;
     node.style.gridTemplateRows = "repeat(" + matrix.length + ", 30vh)";
@@ -297,7 +297,7 @@ export class EmbeddingView extends DOMWidgetView {
       const grid_area = document.createElement("div");
       grid_area.setAttribute("id", area);
       grid_area.style.gridArea = area;
-      grid_area.setAttribute("class", "dashboard-div");
+      grid_area.classList.add("dashboard-div")
       node.appendChild(grid_area);
     });
 

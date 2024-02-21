@@ -13,3 +13,4 @@ custom_ipywidgets/labextension/
 .DS_Store
 
 js/yarn-error.log
+js/package-lock.json

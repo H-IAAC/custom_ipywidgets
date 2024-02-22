@@ -1,11 +1,13 @@
+import os
 import random
 import string
 
 import ipywidgets as widgets
+import simplejson as json
+from IPython.display import display
 from traitlets import Float, List, Unicode
 
 from ._version import NPM_PACKAGE_RANGE
-from IPython.display import display
 
 
 @widgets.register
@@ -28,6 +30,7 @@ class Embedding(widgets.DOMWidget):
         self._check_matrix_format(matrix)
         self.matrix = matrix
 
+        self._all_widgets = []
         self.positions_hashs = {}
         self.grid_areas = []
         for num in self.all_numbers:
@@ -114,6 +117,7 @@ class Embedding(widgets.DOMWidget):
                     not_rects()
 
     def add(self, widget, position: int):
+        self._all_widgets.append(widget)
         if self._is_displayed:
             widget.element = self.positions_hashs[position]
             display(widget)
@@ -126,3 +130,24 @@ class Embedding(widgets.DOMWidget):
             widget = self._widgets_to_display[key]
             widget.element = self.positions_hashs[key]
             display(widget)
+
+    def export(self):
+        absolute_path = os.path.dirname(__file__)
+        relative_js_path = "../js/lib/"
+        js_path = os.path.abspath(os.path.join(absolute_path, relative_js_path))
+        relative_data_path = "wrappers/data.json"
+        data_path = os.path.join(js_path, relative_data_path)
+
+        data = {}
+        data["matrix"] = self.matrix
+        data["grid_areas"] = self.grid_areas
+        data["grid_template_areas"] = self.grid_template_areas
+        data["style"] = self.style
+        data["widgets"] = []
+
+        for widget in self._all_widgets:
+            data["widgets"].append(widget.export_data())
+
+        with open(data_path, "w") as write_file:
+            json_data = json.dumps(data, ignore_nan=True)
+            write_file.write(json_data)

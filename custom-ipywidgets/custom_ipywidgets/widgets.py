@@ -21,6 +21,16 @@ class LinearHistPlot(widgets.DOMWidget):
     element = Unicode().tag(sync=True)
     clickedValue = Unicode().tag(sync=True)
 
+    def export_data(self):
+        data = {
+            "linearData_x": self.linearData_x,
+            "linearData_y": self.linearData_y,
+            "histogramData": self.histogramData,
+            "element": self.element,
+        }
+
+        return {"linearhistplot": data}
+
     def export(self):
         data = {
             "linearData_x": self.linearData_x,
@@ -48,6 +58,17 @@ class ScatterPlot(widgets.DOMWidget):
     clickedValue = Unicode().tag(sync=True)
     selectedValues = List([]).tag(sync=True)
 
+    def export_data(self):
+        data = {
+            "data": self.data,
+            "x": self.x,
+            "y": self.y,
+            "hue": self.hue,
+            "element": self.element,
+        }
+
+        return {"scatterplot": data}
+
     def export(self):
         data = {
             "data": self.data,
@@ -74,6 +95,17 @@ class BarPlot(widgets.DOMWidget):
     y = Unicode().tag(sync=True)
     hue = Unicode().tag(sync=True)
     element = Unicode().tag(sync=True)
+
+    def export_data(self):
+        data = {
+            "data": self.data,
+            "x": self.x,
+            "y": self.y,
+            "hue": self.hue,
+            "element": self.element,
+        }
+
+        return {"barplot": data}
 
     def export(self):
         data = {
@@ -106,6 +138,17 @@ class HistogramPlot(widgets.DOMWidget):
     start = Float().tag(sync=True)
     end = Float().tag(sync=True)
     element = Unicode().tag(sync=True)
+
+    def export_data(self):
+        data = {
+            "data": self.data,
+            "x": self.x,
+            "start": self.start,
+            "end": self.end,
+            "element": self.element,
+        }
+
+        return {"histogramplot": data}
 
     def export(self):
         data = {

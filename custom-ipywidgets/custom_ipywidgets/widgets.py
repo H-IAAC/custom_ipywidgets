@@ -1,7 +1,6 @@
 import ipywidgets as widgets
 from traitlets import Unicode, List, Float
 from ._version import NPM_PACKAGE_RANGE
-from .export import export_graph, export_lasso
 
 # See js/lib/example.js for the frontend counterpart to this file.
 
@@ -30,15 +29,6 @@ class LinearHistPlot(widgets.DOMWidget):
         }
 
         return {"linearhistplot": data}
-
-    def export(self):
-        data = {
-            "linearData_x": self.linearData_x,
-            "linearData_y": self.linearData_y,
-            "histogramData": self.histogramData,
-        }
-
-        export_graph("linearhistplot", 1, data)
 
 
 @widgets.register
@@ -69,17 +59,6 @@ class ScatterPlot(widgets.DOMWidget):
 
         return {"scatterplot": data}
 
-    def export(self):
-        data = {
-            "data": self.data,
-            "x": self.x,
-            "y": self.y,
-            "hue": self.hue,
-        }
-
-        export_graph("scatterplot", 2, data)
-        export_lasso()
-
 
 @widgets.register
 class BarPlot(widgets.DOMWidget):
@@ -106,16 +85,6 @@ class BarPlot(widgets.DOMWidget):
         }
 
         return {"barplot": data}
-
-    def export(self):
-        data = {
-            "data": self.data,
-            "x": self.x,
-            "y": self.y,
-            "hue": self.hue,
-        }
-
-        export_graph("barplot", 1, data)
 
     def linkData(self, widget, widgetAttr):
         def callback(change):
@@ -149,13 +118,3 @@ class HistogramPlot(widgets.DOMWidget):
         }
 
         return {"histogramplot": data}
-
-    def export(self):
-        data = {
-            "data": self.data,
-            "x": self.x,
-            "start": self.start,
-            "end": self.end,
-        }
-
-        export_graph("histogramplot", 1, data)

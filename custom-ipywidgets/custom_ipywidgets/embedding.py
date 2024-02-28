@@ -143,10 +143,10 @@ class Embedding(widgets.DOMWidget):
         data["grid_areas"] = self.grid_areas
         data["grid_template_areas"] = self.grid_template_areas
         data["style"] = self.style
-        data["widgets"] = []
+        data["widgets"] = {}
 
         for widget in self._all_widgets:
-            data["widgets"].append(widget.export_data())
+            data["widgets"].update(widget.export_data())
 
         with open(data_path, "w") as write_file:
             json_data = json.dumps(data, ignore_nan=True)

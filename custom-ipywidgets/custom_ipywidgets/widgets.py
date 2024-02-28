@@ -14,11 +14,17 @@ class LinearHistPlot(widgets.DOMWidget):
     _view_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
     _model_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
 
+    _name = "linearhistplot"
+    _observing = []
+
     linearData_x = List([]).tag(sync=True)
     linearData_y = List([]).tag(sync=True)
     histogramData = List([]).tag(sync=True)
     element = Unicode().tag(sync=True)
     clickedValue = Unicode().tag(sync=True)
+
+    def name(self):
+        return self._name
 
     def export_data(self):
         data = {
@@ -26,9 +32,10 @@ class LinearHistPlot(widgets.DOMWidget):
             "linearData_y": self.linearData_y,
             "histogramData": self.histogramData,
             "element": self.element,
+            "observing": self._observing,
         }
 
-        return {"linearhistplot": data}
+        return {self._name: data}
 
 
 @widgets.register
@@ -40,6 +47,9 @@ class ScatterPlot(widgets.DOMWidget):
     _view_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
     _model_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
 
+    _name = "scatterplot"
+    _observing = []
+
     data = List([]).tag(sync=True)
     x = Unicode().tag(sync=True)
     y = Unicode().tag(sync=True)
@@ -48,6 +58,9 @@ class ScatterPlot(widgets.DOMWidget):
     clickedValue = Unicode().tag(sync=True)
     selectedValues = List([]).tag(sync=True)
 
+    def name(self):
+        return self._name
+
     def export_data(self):
         data = {
             "data": self.data,
@@ -55,9 +68,10 @@ class ScatterPlot(widgets.DOMWidget):
             "y": self.y,
             "hue": self.hue,
             "element": self.element,
+            "observing": self._observing,
         }
 
-        return {"scatterplot": data}
+        return {self._name: data}
 
 
 @widgets.register
@@ -69,11 +83,17 @@ class BarPlot(widgets.DOMWidget):
     _view_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
     _model_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
 
+    _name = "barplot"
+    _observing = []
+
     data = List([]).tag(sync=True)
     x = Unicode().tag(sync=True)
     y = Unicode().tag(sync=True)
     hue = Unicode().tag(sync=True)
     element = Unicode().tag(sync=True)
+
+    def name(self):
+        return self._name
 
     def export_data(self):
         data = {
@@ -82,11 +102,14 @@ class BarPlot(widgets.DOMWidget):
             "y": self.y,
             "hue": self.hue,
             "element": self.element,
+            "observing": self._observing,
         }
 
-        return {"barplot": data}
+        return {self._name: data}
 
     def linkData(self, widget, widgetAttr):
+        self._observing.append({"data": {widget.name(): widgetAttr}})
+
         def callback(change):
             self.data = getattr(widget, widgetAttr)
 
@@ -102,11 +125,17 @@ class HistogramPlot(widgets.DOMWidget):
     _view_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
     _model_module_version = Unicode(NPM_PACKAGE_RANGE).tag(sync=True)
 
+    _name = "histogramplot"
+    _observing = []
+
     data = List([]).tag(sync=True)
     x = Unicode().tag(sync=True)
     start = Float().tag(sync=True)
     end = Float().tag(sync=True)
     element = Unicode().tag(sync=True)
+
+    def name(self):
+        return self._name
 
     def export_data(self):
         data = {
@@ -115,6 +144,7 @@ class HistogramPlot(widgets.DOMWidget):
             "start": self.start,
             "end": self.end,
             "element": self.element,
+            "observing": self._observing,
         }
 
-        return {"histogramplot": data}
+        return {self._name: data}

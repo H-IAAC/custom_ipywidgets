@@ -9,7 +9,8 @@ function plot_linearhistplot(
   linearData_x,
   linearData_y,
   histogramData,
-  element
+  element,
+  setValue
 ) {
   setTimeout(() => {
     linearhistplot(
@@ -17,13 +18,22 @@ function plot_linearhistplot(
       linearData_y,
       histogramData,
       element,
+      setValue
     );
   }, 50);
 }
 
-function plot_scatterplot(data, x, y, hue, element) {
+function plot_scatterplot(
+  data,
+  x,
+  y,
+  hue,
+  element,
+  setValue,
+  setSelectedValues
+) {
   setTimeout(() => {
-    scatterplot(data, x, y, hue, element);
+    scatterplot(data, x, y, hue, element, setValue, setSelectedValues);
   }, 50);
 }
 
@@ -68,49 +78,127 @@ function main() {
 
   document.body.appendChild(node);
 
-  const widgets = data.widgets;
-  for (const widget of widgets) {
-    const widget_name = Object.keys(widget)[0];
-    const widget_data = widget[widget_name];
-    switch (widget_name) {
-      case "linearhistplot":
-        plot_linearhistplot(
-            widget_data.linearData_x,
-            widget_data.linearData_y,
-            widget_data.histogramData,
-            widget_data.element
-          );
-        break;
-      case "scatterplot":
-        plot_scatterplot(
-            widget_data.data,
-            widget_data.x,
-            widget_data.y,
-            widget_data.hue,
-            widget_data.element
-          );
-        break;
-      case "barplot":
-        plot_barplot(
-            widget_data.data,
-            widget_data.x,
-            widget_data.y,
-            widget_data.hue,
-            widget_data.element
-        )
-        break;
-      case "histogramplot":
-        plot_histogramplot(
-            widget_data.data,
-            widget_data.x,
-            widget_data.start,
-            widget_data.end,
-            widget_data.element
-        )
-        break;
-      default:
+  let linearhistplot_data = {};
+  let scatterplot_data = {};
+  let barplot_data = {};
+  let histogramplot_data = {};
+
+  function check_for_observers(observingData) {
+    for (const obs of observingData["observing"]) {
+      const observingDataName = Object.keys(obs)[0];
+      const observedWidgetName = Object.keys(obs[observingDataName])[0];
+      const observedData = obs[observingDataName][observedWidgetName];
+
+      switch (observedWidgetName) {
+        case "linearhistplot":
+          break;
+        case "scatterplot":
+          switch (observedData) {
+            case "clickedValue":
+              scatterplot_data.setValue = (value) => {
+                observingData[observingDataName] = value;
+                observingData.plot();
+              };
+              break;
+            case "selectedValues":
+              scatterplot_data.setSelectedValues = (value) => {
+                observingData[observingDataName] = value;
+                observingData.plot();
+              };
+              break;
+            default:
+          }
+          break;
+        case "barplot":
+          break;
+        case "histogramplot":
+          break;
+        default:
+      }
     }
   }
+
+  let plot_linearhistplot_data = () =>
+    plot_linearhistplot(
+      linearhistplot_data.linearData_x,
+      linearhistplot_data.linearData_y,
+      linearhistplot_data.histogramData,
+      linearhistplot_data.element,
+      linearhistplot_data.setValue
+    );
+  let plot_scatterplot_data = () =>
+    plot_scatterplot(
+      scatterplot_data.data,
+      scatterplot_data.x,
+      scatterplot_data.y,
+      scatterplot_data.hue,
+      scatterplot_data.element,
+      scatterplot_data.setValue,
+      scatterplot_data.setSelectedValues
+    );
+  let plot_barplot_data = () =>
+    plot_barplot(
+      barplot_data.data,
+      barplot_data.x,
+      barplot_data.y,
+      barplot_data.hue,
+      barplot_data.element
+    );
+  let plot_histogramplot_data = () =>
+    plot_histogramplot(
+      histogramplot_data.data,
+      histogramplot_data.x,
+      histogramplot_data.start,
+      histogramplot_data.end,
+      histogramplot_data.element
+    );
+
+  const widgets = data.widgets;
+
+  if (widgets["linearhistplot"]) {
+    const widget_data = widgets["linearhistplot"];
+    linearhistplot_data.linearData_x = widget_data.linearData_x;
+    linearhistplot_data.linearData_y = widget_data.linearData_y;
+    linearhistplot_data.histogramData = widget_data.histogramData;
+    linearhistplot_data.element = widget_data.element;
+    linearhistplot_data.observing = widget_data.observing;
+    linearhistplot_data.plot = plot_linearhistplot_data;
+  }
+  if (widgets["scatterplot"]) {
+    const widget_data = widgets["scatterplot"];
+    scatterplot_data.data = widget_data.data;
+    scatterplot_data.x = widget_data.x;
+    scatterplot_data.y = widget_data.y;
+    scatterplot_data.hue = widget_data.hue;
+    scatterplot_data.element = widget_data.element;
+    scatterplot_data.observing = widget_data.observing;
+    scatterplot_data.plot = plot_scatterplot_data;
+  }
+  if (widgets["barplot"]) {
+    const widget_data = widgets["barplot"];
+    barplot_data.data = widget_data.data;
+    barplot_data.x = widget_data.x;
+    barplot_data.y = widget_data.y;
+    barplot_data.hue = widget_data.hue;
+    barplot_data.element = widget_data.element;
+    barplot_data.observing = widget_data.observing;
+    barplot_data.plot = plot_barplot_data;
+    check_for_observers(barplot_data);
+  }
+  if (widgets["histogramplot"]) {
+    const widget_data = widgets["histogramplot"];
+    histogramplot_data.data = widget_data.data;
+    histogramplot_data.x = widget_data.x;
+    histogramplot_data.y = widget_data.start;
+    histogramplot_data.hue = widget_data.end;
+    histogramplot_data.element = widget_data.element;
+    histogramplot_data.observing = widget_data.observing;
+    histogramplot_data.plot = plot_histogramplot_data;
+  }
+  linearhistplot_data.plot();
+  scatterplot_data.plot();
+  barplot_data.plot();
+  histogramplot_data.plot();
 }
 
 main();

@@ -127,7 +127,7 @@ export class ScatterPlotView extends DOMWidgetView {
     }, 50);
   }
 
-  setValue(text) {
+  setValue(text, that) {
     that.model.set({ clickedValue: text });
     that.model.save_changes();
   }
@@ -289,7 +289,7 @@ export class EmbeddingView extends DOMWidgetView {
     node.classList.add(style)
     node.style.display = "grid";
     node.style.gridTemplateAreas = grid_template_areas;
-    node.style.gridTemplateRows = "repeat(" + matrix.length + ", 30vh)";
+    node.style.gridTemplateRows = "repeat(" + matrix.length + ", 20vh)";
     node.style.gridTemplateColumns = "repeat(" + matrix[0].length + ", 1fr)";
     node.style.width = "100%";
 

@@ -39,7 +39,7 @@ export function linearhistplot(
   function mouseover(event, d) {
     focus.style("opacity", 1);
     focusText.style("opacity", 1);
-    focus.attr("x", event.x - 30).attr("y", event.y - 40);
+    focus.attr("x", event.offsetX - 30).attr("y", event.offsetY - 40);
     focusText
       .html(
         "x:" +
@@ -48,8 +48,8 @@ export function linearhistplot(
           "y:" +
           Math.round(d["y"] * 10) / 10
       )
-      .attr("x", event.x - 15)
-      .attr("y", event.y - 20);
+      .attr("x", event.offsetX - 15)
+      .attr("y", event.offsetY - 20);
   }
 
   function mouseout() {
@@ -101,8 +101,7 @@ export function linearhistplot(
     .append("text")
     .style("opacity", 0)
     .attr("text-anchor", "left")
-    .attr("alignment-baseline", "middle")
-    .html("lkjdslkfjsd");
+    .attr("alignment-baseline", "middle");
 
   svg
     .append("g")

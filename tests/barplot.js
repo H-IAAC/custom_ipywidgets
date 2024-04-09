@@ -1,4 +1,4 @@
-export function barplot(data, x_axis, y_axis, hue_axis, element, that) {
+export function barplot(data, x_axis, y_axis, hue_axis, element, el) {
   var customHeight = 375;
   var customWidth = 720;
   if (element) {
@@ -6,7 +6,7 @@ export function barplot(data, x_axis, y_axis, hue_axis, element, that) {
     customWidth = element.clientWidth;
     customHeight = element.clientHeight;
   } else {
-    element = that.el;
+    element = el;
   }
   d3.select(element).selectAll("*").remove();
 

@@ -1,4 +1,4 @@
-export function barplot(data, x_axis, y_axis, hue_axis, element, el) {
+function barplot(data, x_axis, y_axis, hue_axis, element, el) {
   var customHeight = 375;
   var customWidth = 720;
   if (element) {
